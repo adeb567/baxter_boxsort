@@ -39,7 +39,7 @@ camera_matrix = np.array([[405.916530305, 0, 657.501404458],
                           [0, 405.916530305, 411.696520403],
                           [0, 0, 1]])
 
-table_height = -0.24254757440653632
+table_height = -0.25
 
 gripper_orient=Quaternion(
                     x=0,
@@ -141,7 +141,7 @@ def main():
         right_arm.move_to_joint_positions(right_joint_angles)
         gc_r.open()
         
-        right_joint_angles = ik_test('right', 'drop')
+        right_joint_angles = ik_test('right', 'after_drop')
         right_arm.move_to_joint_positions(right_joint_angles)
 
 
@@ -253,6 +253,15 @@ def get_pose(case):
                 ),
                 orientation=gripper_orient
             )
+    if case == 'after_drop':
+        return Pose(
+                position=Point(
+                    x=0.6177436108949574,
+                    y=-0.6325383787467281,
+                    z= table_height + 0.20,
+                ),
+                orientation=gripper_orient
+        )
     
 
 
