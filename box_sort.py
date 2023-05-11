@@ -24,8 +24,6 @@ from baxter_core_msgs.srv import (
 )
 
 obj_color = None
-obj_found = False
-correct_location = True
 
 lower_ranges = dict()
 upper_ranges = dict() 
@@ -43,6 +41,13 @@ camera_matrix = np.array([[405.916530305, 0, 657.501404458],
 
 table_height = -0.24254757440653632
 
+gripper_orient=Quaternion(
+                    x=0,
+                    y=1,
+                    z=0,
+                    w=0,
+                )
+
 #Object centroid position in the baxter's stationary base frame 
 xb = 0
 yb = 0
@@ -54,8 +59,6 @@ count_green = 0
 do_cv = 0
 
 def callback(message):
-    global xb, yb, obj_color, obj_found
-    
     if do_cv == 1:
         bridge = CvBridge()
         cv_image = bridge.imgmsg_to_cv2(message, "bgr8")
@@ -76,7 +79,8 @@ def callback(message):
 
                     cx = 320 - cx
                     cy = 200 - cy
-  
+
+                    global obj_color
                     obj_color = color
 
                     cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -193,12 +197,7 @@ def get_pose(case):
                     y=-0.1833511949521925,
                     z=0.09941425665002981,
                 ),
-                orientation=Quaternion(
-                    x=0,
-                    y=1,
-                    z=0,
-                    w=0,
-                )
+                orientation=gripper_orient
         )
     if case == 'red':
         global count_red
@@ -209,12 +208,7 @@ def get_pose(case):
                     y=-0.6325383787467281,
                     z= table_height + count_red,
                 ),
-                orientation=Quaternion(
-                    x=0,
-                    y=1,
-                    z=0,
-                    w=0,
-                )
+                orientation=gripper_orient
         )
     if case == 'blue':
         global count_blue
@@ -225,12 +219,7 @@ def get_pose(case):
                     y=-0.6325383787467281,
                     z= table_height + count_blue,
                 ),
-                orientation=Quaternion(
-                    x=0,
-                    y=1,
-                    z=0,
-                    w=0,
-                )
+                orientation=gripper_orient
         )
     if case == 'green':
         global count_green
@@ -241,12 +230,7 @@ def get_pose(case):
                     y=-0.6325383787467281,
                     z= table_height + count_green,
                 ),
-                orientation=Quaternion(
-                    x=0,
-                    y=1,
-                    z=0,
-                    w=0,
-                )
+                orientation=gripper_orient
         )
     if case == 'pick':
         print(xb, yb)
@@ -256,12 +240,7 @@ def get_pose(case):
                     y= yb,
                     z= table_height,
                 ),
-                orientation=Quaternion(
-                    x=0,
-                    y=1,
-                    z=0,
-                    w=0,
-                )
+                orientation=gripper_orient
         )
         return p
 
@@ -272,12 +251,7 @@ def get_pose(case):
                     y= yb,
                     z=-0.07054757440653632,
                 ),
-                orientation=Quaternion(
-                    x=0,
-                    y=1,
-                    z=0,
-                    w=0,
-                )
+                orientation=gripper_orient
             )
     
 
