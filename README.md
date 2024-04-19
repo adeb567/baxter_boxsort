@@ -10,7 +10,7 @@ Advisor: Junaed Sattar
 
 Team: Amitabha, Jordan, Supreeth, Vivek
 
-![image](https://github.com/adeb567/CSCI-5527-Project/blob/main/image.png?raw=true)
+![image](https://github.com/adeb567/baxter_boxsort/blob/main/image.png?raw=true)
 
 Dependent Packages - https://github.com/RethinkRobotics/baxter, https://github.com/RethinkRobotics/baxter_pykdl
 
